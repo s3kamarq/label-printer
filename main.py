@@ -14,7 +14,7 @@ with open('Teilnahmebedingungen.txt', 'r') as f: # liesst die Teilnahmebedingung
 do_label = make_label() #creates the object from module make_label that crates the labels
 
 
-
+"""
 layout = [
           #[sg.Text(' ', size=(20, 1))],
           [sg.Push(), sg.Image('bannerkm.png', size=(None,None)), sg.Push()],
@@ -54,6 +54,7 @@ while True:  # Event Loop
         window['QR-Code'].update("")
 
 window.close()
+"""
 ##########################################################################################################
 ################################################################################################
 
@@ -100,7 +101,7 @@ sg.theme('LightGrey1')   # Füge etwas Farbe hinzu
 
 # Layout definieren
 layout = [
-    [sg.Image('bannerkm.png', size=(None, None))],  # Banner einfügen
+    [sg.Image('banner.png', size=(None, None))],  # Banner einfügen
     [sg.Text(' ')],  # Leerer Text für einen Zeilenumbruch
     [sg.Text(' ')],  # Leerer Text für einen Zeilenumbruch
     [sg.Text('Willkommen!', size=(None, None), font=('Helvetica', 20), justification='center')],  # Großer Text "Willkommen!"
@@ -116,10 +117,12 @@ window = sg.Window('Anmeldung zum Kongress 2024', layout, size=[850, 500], final
 #window['QR-Code'].bind("<Return>", "_Enter")
 
 while True:  # Event Loop
+    UID = input("Bitte Scannen!")
+    do_label.check_entry(UID)
     event, values = window.read()
     if event == sg.WINDOW_CLOSED or event == 'Exit':
         break
     elif event == 'Anmeldung':  # Wenn der "Zur Anmeldung" Button geklickt wird
         anmeldung_window()# Hier können Sie den Code hinzufügen, um das neue Fenster für die Anmeldung zu öffnen
-        
+       
 window.close()
