@@ -20,10 +20,12 @@ def add_to_excel(vorname, name, organisation, email, excel_file):
     next_row = sheet.max_row + 1
     
     # Füge die Daten in die nächste leere Zeile ein
-    sheet.cell(row=next_row, column=2).value = vorname
-    sheet.cell(row=next_row, column=3).value = name
-    sheet.cell(row=next_row, column=4).value = organisation
-    sheet.cell(row=next_row, column=5).value = email
+    sheet.cell(row=next_row, column=19).value = vorname
+    sheet.cell(row=next_row, column=20).value = name
+    sheet.cell(row=next_row, column=21).value = email
+    sheet.cell(row=next_row, column=22).value = organisation
+    sheet.cell(row=next_row, column=30).value = email
+  
     
     # Speichere die Änderungen
     wb.save(excel_file)
@@ -50,7 +52,7 @@ def anmeldung_window():
             name = values['-Name-']
             organisation = values['-Organisation-']
             email = values['email']
-            add_to_excel(vorname=vorname,name=name,organisation=organisation, email=email,excel_file='Teilnehmerliste_Final.xlsx')
+            add_to_excel(vorname=vorname,name=name,organisation=organisation, email=email,excel_file='pretix_file.xlsx')
             do_label.check_entry(email)
             sg.popup('Sie haben sich erfolgreich angemeldet! Ihr Namensschild wird nun gedruckt.', auto_close=True, auto_close_duration=7)
             break
@@ -77,7 +79,7 @@ while True:
     event, values = window.read()
     if event == sg.WINDOW_CLOSED or event == 'Exit':
         break
-    elif event == 'Anmelden':
+    elif event == 'Anmeldung':
         anmeldung_window()
     elif event == 'QR-Code' + "_Enter":  # Wenn das Eingabefeld endet mit einem Zeilenumbruch (Enter)
         email = values['QR-Code'].strip()  # Entferne den Zeilenumbruch

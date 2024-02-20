@@ -16,16 +16,16 @@ drucker=print_ql.etickettendrucker()
 class make_label:
 	def __init__(self):
 		
-		self.file_path = "Teilnehmerliste_Final.xlsx"
+		self.file_path = 'pretix_file.xlsx' #"Teilnehmerliste_Final.xlsx"
 		self.logopath="mdz_Logo_Pfad.xlsx"
 		###Excel Parameter
-		self.UID_position = 4
-		self.name_position = 1
-		self.family_name_position = 2
+		self.UID_position = 29 #4 # Null wird mitgezählt
+		self.name_position = 18 #1
+		self.family_name_position = 19#2
 		self.table_24_position = 6
 		self.table_25_position = 7
 		self.mdz = 5
-		self.organisation_position = 3
+		self.organisation_position = 21 #3 auskommentierte Werte sind von 'Teilnehmerliste_Final.xlsx'
 		###Parameter
 		self.sign_width = 696
 		#self.size_qr_code = 0 #280
@@ -135,7 +135,7 @@ class make_label:
 		
 		image.save("namensschilder/"+data_list[self.family_name_position] + ".png")
 		drucker.print_label(image)
-		popup("Namensschild wird an den Drucker geschickt", 	auto_close=True, auto_close_duration = self.Druckzeit)
+		#popup("Namensschild wird an den Drucker geschickt", 	auto_close=True, auto_close_duration = self.Druckzeit)
 		#print("Finish")
 		self.image = image
 		#labels.append(image)
