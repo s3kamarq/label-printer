@@ -105,16 +105,17 @@ class make_label:
 		image.paste(logo_image,(self.logo_y_position,self.logo_x_position))
 
 		# Load Mittelstand-Digital Zentrumslogo (right side) ####################################################################
-		##path_list=pd.read_excel(self.logopath)
+		path_list=pd.read_excel(self.logopath)
 		
 		##index= path_list[path_list["Zentrumsname"].str.contains(data_list[self.mdz], case=False)].index
 		#index=index[0]
 					
 		##logo_file_path = path_list.iloc[index]['Dateiname']
 		##print(logo_file_path)
-		##logo_mdz= Image.open(logo_file_path) #'Logos300dpi\MD_zentrum_augsburg_CMYK_300dpi.jpg'
-		##logo_mdz= logo_mdz.resize((self.size_mdz_width, self.size_mdz_height))
-		##image.paste(logo_mdz,(self.mdz_y_position,self.mdz_x_position))
+		#logo_mdz= Image.open(logo_file_path) #'Logos300dpi\MD_zentrum_augsburg_CMYK_300dpi.jpg'
+		logo_mdz= Image.open('Logos300dpi\MD_zentrum_augsburg_CMYK_300dpi.jpg') #'Logos300dpi\MD_zentrum_augsburg_CMYK_300dpi.jpg'
+		logo_mdz= logo_mdz.resize((self.size_mdz_width, self.size_mdz_height))
+		image.paste(logo_mdz,(self.mdz_y_position,self.mdz_x_position))
 		
 		#Draw name
 		position = self.calculate_position(name,self.name_upper_border,self.name_lower_border, fnt_size = self.max_fnt_size,bolt="bolt", )
