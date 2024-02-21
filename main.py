@@ -68,7 +68,7 @@ layout = [
     [sg.Text(' ')],
     [sg.Text(' ')],
     [sg.Text(' ')],
-    [sg.Text('Ihre Ticket-Code:', size=(20, 1)), sg.Input(key='QR-Code', size=(30, 1), enable_events=True, focus=True)],  # QR-Code-Feld mit Ereignisaktivierung
+    [sg.Text('Ihr Ticket-Code:', size=(20, 1)), sg.Input(key='QR-Code', size=(30, 1), enable_events=True, focus=True)],  # QR-Code-Feld mit Ereignisaktivierung
     [sg.Text('Noch nicht angemeldet?', size=(20, 1), justification='left'), sg.Button('Zur Anmeldung', size=(None, None), button_color=('white', 'black'), key='Anmeldung')],  # Button "Zur Anmeldung",
 ]
 

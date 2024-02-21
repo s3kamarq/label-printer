@@ -24,7 +24,7 @@ class make_label:
 		self.family_name_position = 19#2
 		self.table_24_position = 6
 		self.table_25_position = 7
-		self.mdz = 5
+		self.mdz = 30
 		self.organisation_position = 21 #3 auskommentierte Werte sind von 'Teilnehmerliste_Final.xlsx'
 		###Parameter
 		self.sign_width = 696
@@ -104,18 +104,22 @@ class make_label:
 		logo_image = logo_image.resize((self.size_logo_width,self.size_logo_height))
 		image.paste(logo_image,(self.logo_y_position,self.logo_x_position))
 
-		# Load Mittelstand-Digital Zentrumslogo (right side) ####################################################################
-		path_list=pd.read_excel(self.logopath)
-		
-		##index= path_list[path_list["Zentrumsname"].str.contains(data_list[self.mdz], case=False)].index
-		#index=index[0]
-					
-		##logo_file_path = path_list.iloc[index]['Dateiname']
-		##print(logo_file_path)
-		#logo_mdz= Image.open(logo_file_path) #'Logos300dpi\MD_zentrum_augsburg_CMYK_300dpi.jpg'
-		logo_mdz= Image.open('Logos300dpi\MD_zentrum_augsburg_CMYK_300dpi.jpg') #'Logos300dpi\MD_zentrum_augsburg_CMYK_300dpi.jpg'
-		logo_mdz= logo_mdz.resize((self.size_mdz_width, self.size_mdz_height))
-		image.paste(logo_mdz,(self.mdz_y_position,self.mdz_x_position))
+		# Load Mittelstand-Digital Zentrumslogo (right side) #
+		try:
+			path_list=pd.read_excel(self.logopath)
+			#print(data_list)
+			index= path_list[path_list["Zentrumsname"].str.contains(data_list[self.mdz], case=False)].index
+			#print(data_list[self.mdz])
+			#print(index)
+			index=index.values[0]
+			logo_file_path = path_list.iloc[index]['Dateiname']
+			print(logo_file_path)
+			logo_mdz= Image.open("Logos300dpi/"+logo_file_path+".jpg") #'Logos300dpi\MD_zentrum_augsburg_CMYK_300dpi.jpg'
+			logo_mdz= logo_mdz.resize((self.size_mdz_width, self.size_mdz_height))
+			image.paste(logo_mdz,(self.mdz_y_position,self.mdz_x_position))
+		except IndexError as e:
+			print("Es wurde kein passendes Zentrumslogo gefunden!")
+			print(e)
 		
 		#Draw name
 		position = self.calculate_position(name,self.name_upper_border,self.name_lower_border, fnt_size = self.max_fnt_size,bolt="bolt", )
