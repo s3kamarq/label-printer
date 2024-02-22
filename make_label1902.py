@@ -26,6 +26,7 @@ class make_label:
 		self.table_25_position = 7
 		self.mdz = 30
 		self.organisation_position = 21 #3 auskommentierte Werte sind von 'Teilnehmerliste_Final.xlsx'
+		self.drtitle_position= 17
 		###Parameter
 		self.sign_width = 696
 		#self.size_qr_code = 0 #280
@@ -90,7 +91,11 @@ class make_label:
 	def create_lable(self, data_list):
 
 		#Read data	
-		name = str(data_list[self.name_position]) + " " + str(data_list[self.family_name_position])
+		drtitle= str(data_list[self.drtitle_position])
+		if drtitle== "None":
+			name = str(data_list[self.name_position]) + " " + str(data_list[self.family_name_position])
+		else:
+			name = drtitle+ " "+ str(data_list[self.name_position]) + " " + str(data_list[self.family_name_position])
 		#family_name = str(data_list[self.family_name_position])
 		organisation = str(data_list[self.organisation_position])
 		labels = [] 

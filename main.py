@@ -11,7 +11,7 @@ do_label = make_label()
 
 import openpyxl
 
-def add_to_excel(vorname, name, organisation, email, excel_file):
+def add_to_excel(titel,vorname, name, organisation, email, excel_file):
     # Öffne die Excel-Datei
     wb = openpyxl.load_workbook(excel_file)
     sheet = wb.active
@@ -20,6 +20,7 @@ def add_to_excel(vorname, name, organisation, email, excel_file):
     next_row = sheet.max_row + 1
     
     # Füge die Daten in die nächste leere Zeile ein
+    sheet.cell(row=next_row, column=18).value = titel
     sheet.cell(row=next_row, column=19).value = vorname
     sheet.cell(row=next_row, column=20).value = name
     sheet.cell(row=next_row, column=21).value = email
@@ -34,6 +35,7 @@ def add_to_excel(vorname, name, organisation, email, excel_file):
 
 def anmeldung_window():
     layout = [
+        [sg.Text('Titel', size=(10, 1)),sg.Combo(['','Dr.','Prof.', 'Prof. Dr.'],key='-Titel-', size=(30,1))],
         [sg.Text('Vorname', size=(10, 1)), sg.Input(key='-Vorname-', size=(30, 1))],
         [sg.Text('Name', size=(10, 1)), sg.Input(key='-Name-', size=(30, 1))],
         [sg.Text('Organisation', size=(10, 1)), sg.Input(key='-Organisation-', size=(30, 1))],
@@ -48,11 +50,12 @@ def anmeldung_window():
         if event == sg.WINDOW_CLOSED:
             break
         elif event == 'Bestätigen':
+            titel= values['-Titel-']
             vorname = values['-Vorname-']
             name = values['-Name-']
             organisation = values['-Organisation-']
             email = values['email']
-            add_to_excel(vorname=vorname,name=name,organisation=organisation, email=email,excel_file='pretix_file.xlsx')
+            add_to_excel(titel=titel,vorname=vorname,name=name,organisation=organisation, email=email,excel_file='pretix_file.xlsx')
             do_label.check_entry(email)
             sg.popup('Sie haben sich erfolgreich angemeldet! Ihr Namensschild wird nun gedruckt.', auto_close=True, auto_close_duration=7)
             break
