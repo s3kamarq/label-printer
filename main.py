@@ -11,7 +11,7 @@ do_label = make_label()
 
 import openpyxl
 
-def add_to_excel(titel,vorname, name, organisation, email, excel_file):
+def add_to_excel(titel,vorname, name, organisation, email, excel_file, zentrum):
     # Öffne die Excel-Datei
     wb = openpyxl.load_workbook(excel_file)
     sheet = wb.active
@@ -26,12 +26,15 @@ def add_to_excel(titel,vorname, name, organisation, email, excel_file):
     sheet.cell(row=next_row, column=21).value = email
     sheet.cell(row=next_row, column=22).value = organisation
     sheet.cell(row=next_row, column=30).value = email
+    sheet.cell(row=next_row, column=31).value = zentrum
   
     
     # Speichere die Änderungen
     wb.save(excel_file)
 
-
+mdz= pd.read_excel('mdz_Logo_Pfad.xlsx')
+mdz= mdz['Zentrumsname'].tolist()
+mdz_netzwerk= ['Nein'] + mdz
 
 def anmeldung_window():
     layout = [
@@ -40,6 +43,7 @@ def anmeldung_window():
         [sg.Text('Name', size=(10, 1)), sg.Input(key='-Name-', size=(30, 1))],
         [sg.Text('Organisation', size=(10, 1)), sg.Input(key='-Organisation-', size=(30, 1))],
         [sg.Text('E-Mail', size=(10, 1)), sg.Input(key='email', size=(30, 1))],
+        [sg.Text('Mittelstand-Digital Netzwerk', size=(10, 1)),sg.Combo(mdz_netzwerk,key='-mdz_Netzwerk-', size=(30,1))],
         [sg.Button('Bestätigen')]
     ]
 
@@ -55,7 +59,8 @@ def anmeldung_window():
             name = values['-Name-']
             organisation = values['-Organisation-']
             email = values['email']
-            add_to_excel(titel=titel,vorname=vorname,name=name,organisation=organisation, email=email,excel_file='pretix_file.xlsx')
+            zentrum=values['-mdz_Netzwerk-']
+            add_to_excel(titel=titel,vorname=vorname,name=name,organisation=organisation, email=email,excel_file='pretix_file.xlsx', zentrum=zentrum)
             do_label.check_entry(email)
             sg.popup('Sie haben sich erfolgreich angemeldet! Ihr Namensschild wird nun gedruckt.', auto_close=True, auto_close_duration=7)
             break
